@@ -8,11 +8,12 @@ import (
 	"log"
 	_ "github.com/lib/pq"
 	"os"
+	"github.com/joho/godotenv"
 )
-
-pgUser := os.Getenv('DB_USER');
-pgPassword := os.Getenv('DB_PASSWORD');
-dbName := os.Getenv('DB_NAME');
+var err = godotenv.Load()
+var pgUser = os.Getenv("DB_USER")
+var pgPassword = os.Getenv("DB_PASSWORD")
+var dbName = os.Getenv("DB_NAME")
 
 type User struct {
 	Name  string `json:"name"`
@@ -27,7 +28,7 @@ func AddUser(c *gin.Context) {
 		return
 	}
 	// Establish a database connection
-	db, err := sql.Open("postgres", "user=%s password=%s dbname=%s sslmode=disable", pgUser, pgPassword, dbName)
+	db, err := sql.Open("postgres", fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", pgUser, pgPassword, dbName))
 	if err != nil {
 		log.Fatal(err)
 	}
