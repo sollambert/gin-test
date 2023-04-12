@@ -1,9 +1,9 @@
 package auth
 
 import (
-	"github.com/authboss/authboss"
-	"github.com/authboss/defaults"
-	"github.com/authboss/logout"
+	"github.com/volatiletech/authboss"
+	"github.com/volatiletech/authboss/defaults"
+	"github.com/volatiletech/authboss/logout"
 	"github.com/gorilla/sessions"
 )
 
@@ -13,7 +13,7 @@ func configureAuthboss() authboss.Authboss {
 
 	// Set up session storage
 	store := sessions.NewCookieStore([]byte("your-secret-key"))
-	ab.Config.Storage.SessionState = defaults.NewCookieStorer(store)
+	ab.Config.Storage.SessionState = defaults.NewCookieStore(store)
 
 	// Set up user authentication options
 	ab.Config.AuthenticateAfterRegister = true
